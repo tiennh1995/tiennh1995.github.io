@@ -35,10 +35,14 @@
 			// }
 	  //   });
 	  // });
-	  	const resp = await fetch('/data.txt');
-  		var a = await resp.text();
-  		console.log(a);
+		window.onload = async () => {
+		  const resp = await fetch('/data.txt');
+		  var a = await resp.text();
+		  console.log(a);
+		};
 	});
+
+
 
 	// self.addEventListener('fetch', function(event) {
 	//   event.respondWith(
