@@ -1,5 +1,5 @@
 const filesToCache = [
-  '/data.txt'
+  '/data.json'
 ];
 
 const staticCacheName = 'pages-cache-v1';
