@@ -5,7 +5,7 @@
 <h1>My First Heading</h1>
 
 <p>My first paragraph.</p>
-	<a class="button" href="/data.txt">click</a>
+	<button class="button">click</button>
 </body>
 
 <script type="text/javascript">
@@ -18,16 +18,27 @@
 	  		});
 		}  //the event occurred
 	})
-
-	self.addEventListener('fetch', function(event) {
-	  event.respondWith(
-	    caches.match(event.request).then(function(response) {
-	      return response || fetch(event.request);
-	    }).catch(function() {
-	      return caches.match('/offline.html');
-	    })
-	  );
+	
+	
+	document.querySelector('.button').addEventListener('click', function(event) {
+	  caches.open('pages-cache-v1').then(function(cache) {
+	    cache.match('/data.txt').then(function(response) {
+	    	return response;
+	    }).then(function(data) {
+	    	console.log(data);
+	    });
+	  });
 	});
+
+	// self.addEventListener('fetch', function(event) {
+	//   event.respondWith(
+	//     caches.match(event.request).then(function(response) {
+	//       return response || fetch(event.request);
+	//     }).catch(function() {
+	//       return caches.match('/offline.html');
+	//     })
+	//   );
+	// });
 
 	// document.querySelector('.button').addEventListener('click', function(event) {
 	//   event.preventDefault();
