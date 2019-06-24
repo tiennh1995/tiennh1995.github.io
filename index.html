@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <body>
+	<h1>Dictionary Project</h1>
+	<a class="button" href="/click">click</a>
 
-<h1>My First Heading</h1>
-
-<p>My first paragraph.</p>
-	<button class="button">click</button>
+	<p id="content"></p>
 </body>
 
 <script type="text/javascript">
@@ -16,36 +15,29 @@
 	  		}).catch(function(error) {
 	    		console.log('Service worker registration failed, error:', error);
 	  		});
-		}  //the event occurred
+		} 
 	})
-	
+
 	document.querySelector('.button').addEventListener('click', function(event) {
-	  caches.open('pages-cache-v1').then(function(cache) {
-	    cache.match('/data.json').then(function(response) {
-	    	return response.json();
-	    }).then(function(data) {
-		console.log(data);
-	    });
-	  });
+		event.preventDefault();
+		fetch(e.target.href)
+		  .then(function(response) {
+			document.getElementById('content').innerHTML = data['age'];
+
+		  });
+	});	
+
+	self.addEventListener('fetch', function(event) {
+	  	event.respondWith(
+	  		caches.open('pages-cache-v1').then(function(cache) {
+	      		return cache.match(event.request).then(function (response) {
+	        		return response || fetch(event.request).then(function(response) {
+	          			cache.put(event.request, response.clone());
+	          			return response;
+	        		});
+	      		});
+	    	})
+	  	);
 	});
-
-// 	self.addEventListener('fetch', function(event) {
-// 	  event.respondWith(
-// 	    caches.match(event.request).then(function(response) {
-// 	      return response || fetch(event.request);
-// 	    }).catch(function() {
-// 	      return caches.match('/offline.html');
-// 	    })
-// 	  );
-// 	});
-
-	// document.querySelector('.button').addEventListener('click', function(event) {
-	//   event.preventDefault();
-	//   caches.open('pages-cache-v1').then(function(cache) {
-	//     cache.match('/data.txt').then(function(response) {
-	//     	return response;
-	//     });
-	//   });
-	// });
 </script>
 </html>
