@@ -22,22 +22,9 @@
 		event.preventDefault();
 		fetch(event.target.href)
 		  .then(function(response) {
-			document.getElementById('content').innerHTML = data['age'];
+			document.getElementById('content').innerHTML = response['age'];
 
 		  });
 	});	
-
-	self.addEventListener('fetch', function(event) {
-	  	event.respondWith(
-	  		caches.open('pages-cache-v1').then(function(cache) {
-	      		return cache.match(event.request).then(function (response) {
-	        		return response || fetch(event.request).then(function(response) {
-	          			cache.put(event.request, response.clone());
-	          			return response;
-	        		});
-	      		});
-	    	})
-	  	);
-	});
 </script>
 </html>
