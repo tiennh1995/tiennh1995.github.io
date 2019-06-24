@@ -1,6 +1,6 @@
 const filesToCache = [
-  'index.html',
-  '/data.json'
+	'index.html',
+	'/data.json'
 ];
 
 const staticCacheName = 'dictionary';
@@ -21,7 +21,11 @@ self.addEventListener('fetch', function(event) {
   		return cache.match(event.request).then(function (response) {
     		return response || fetch(event.request).then(function(response) {
     			cache.put(event.request, response.clone());
-    			return response;
+    			if(response['url'].includes('json')) {
+    				return response.json();
+    			} else {
+    				return response;
+    			}
     		});
   		});
   	})
