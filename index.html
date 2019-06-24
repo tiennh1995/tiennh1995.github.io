@@ -20,7 +20,7 @@
 
 	document.querySelector('.button').addEventListener('click', function(event) {
 		event.preventDefault();
-		fetch(e.target.href)
+		fetch(event.target.href)
 		  .then(function(response) {
 			document.getElementById('content').innerHTML = data['age'];
 
