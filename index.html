@@ -21,5 +21,17 @@
   });
 }  //the event occurred
 })
+	
+	
+document.querySelector('.button').addEventListener('click', function(event) {
+  event.preventDefault();
+  caches.open('pages-cache-v1').then(function(cache) {
+    cache.matchAll('/data.txt').then(function(response) {
+      response.forEach(function(element, index, array) {
+        console.log(element);
+      });
+    });
+  })
+});
 </script>
 </html>
