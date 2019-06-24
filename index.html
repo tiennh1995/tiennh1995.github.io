@@ -20,39 +20,24 @@
 	})
 	
 	document.querySelector('.button').addEventListener('click', function(event) {
-	  // caches.open('pages-cache-v1').then(function(cache) {
-	  //   cache.match('/data.txt').then(function(response) {
-	  //   	return response;
-	  //   }).then(function(data) {
-			// new Promise((resolve, reject) => {
-			//     fs.readFile('./file.txt', function (err, content) {
-			//       if (err) {
-			//         return reject(err)
-			//       }
-			//       resolve(content)
-			//     })
-			//   })
-			// }
-	  //   });
-	  // });
-		window.onload = async () => {
-		  const resp = await fetch('/data.txt');
-		  var a = await resp.text();
-		  console.log(a);
-		};
+	  caches.open('pages-cache-v1').then(function(cache) {
+	    cache.match('/data.json').then(function(response) {
+	    	return response.json();
+	    }).then(function(data) {
+		console.log(data);
+	    });
+	  });
 	});
 
-
-
-	self.addEventListener('fetch', function(event) {
-	  event.respondWith(
-	    caches.match(event.request).then(function(response) {
-	      return response || fetch(event.request);
-	    }).catch(function() {
-	      return caches.match('/offline.html');
-	    })
-	  );
-	});
+// 	self.addEventListener('fetch', function(event) {
+// 	  event.respondWith(
+// 	    caches.match(event.request).then(function(response) {
+// 	      return response || fetch(event.request);
+// 	    }).catch(function() {
+// 	      return caches.match('/offline.html');
+// 	    })
+// 	  );
+// 	});
 
 	// document.querySelector('.button').addEventListener('click', function(event) {
 	//   event.preventDefault();
