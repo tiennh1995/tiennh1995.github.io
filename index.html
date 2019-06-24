@@ -19,19 +19,25 @@
 		}  //the event occurred
 	})
 	
-	
 	document.querySelector('.button').addEventListener('click', function(event) {
-	  caches.open('pages-cache-v1').then(function(cache) {
-	    cache.match('/data.txt').then(function(response) {
-	    	return response;
-	    }).then(function(data) {
-		    debugger;
-	    	data.arrayBuffer().then((buffer) => {
-			  console.log(new Uint8Array(buffer));
-			  // Uint8Array(11) [72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
-			});
-	    });
-	  });
+	  // caches.open('pages-cache-v1').then(function(cache) {
+	  //   cache.match('/data.txt').then(function(response) {
+	  //   	return response;
+	  //   }).then(function(data) {
+			// new Promise((resolve, reject) => {
+			//     fs.readFile('./file.txt', function (err, content) {
+			//       if (err) {
+			//         return reject(err)
+			//       }
+			//       resolve(content)
+			//     })
+			//   })
+			// }
+	  //   });
+	  // });
+	  	const resp = await fetch('/data.txt');
+  		var a = await resp.text();
+  		console.log(a);
 	});
 
 	// self.addEventListener('fetch', function(event) {
