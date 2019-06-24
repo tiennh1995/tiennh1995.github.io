@@ -27,6 +27,7 @@ document.querySelector('.button').addEventListener('click', function(event) {
   event.preventDefault();
   caches.open('pages-cache-v1').then(function(cache) {
     cache.matchAll('/data.txt').then(function(response) {
+	    debugger;
       response.forEach(function(element, index, array) {
 	reader = element["body"].getReader();
 	      debugger;
