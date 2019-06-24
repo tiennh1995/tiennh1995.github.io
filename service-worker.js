@@ -1,5 +1,4 @@
 const filesToCache = [
-  '/index.html',
   '/data.txt'
 ];
 
