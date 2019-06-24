@@ -29,7 +29,9 @@ document.querySelector('.button').addEventListener('click', function(event) {
     cache.matchAll('/data.txt').then(function(response) {
       response.forEach(function(element, index, array) {
 	reader = element["body"].getReader();
+	      debugger;
 	reader.read().then(function processText({ done, value }) {
+		debugger;
 	    if (done) {
 	      console.log(value);
 	    }
