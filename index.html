@@ -18,16 +18,6 @@
 	  		});
 		}  //the event occurred
 	})
-	
-	
-	document.querySelector('.button').addEventListener('click', function(event) {
-	  event.preventDefault();
-	  caches.open('pages-cache-v1').then(function(cache) {
-	    cache.match('/data.txt').then(function(response) {
-	    	return response;
-	    });
-	  });
-	});
 
 	self.addEventListener('fetch', function(event) {
 	  event.respondWith(
