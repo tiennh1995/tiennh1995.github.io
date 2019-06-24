@@ -5,41 +5,47 @@
 <h1>My First Heading</h1>
 
 <p>My first paragraph.</p>
-	<button class="button">click</button>
+	<a class="button" href="/data.txt">click</a>
 </body>
 
 <script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function(event) {
-
-	if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-  .then(function(registration) {
-    console.log('Registration successful, scope is:', registration.scope);
-  })
-  .catch(function(error) {
-    console.log('Service worker registration failed, error:', error);
-  });
-}  //the event occurred
-})
+		if ('serviceWorker' in navigator) {
+	  		navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+	    		console.log('Registration successful, scope is:', registration.scope);
+	  		}).catch(function(error) {
+	    		console.log('Service worker registration failed, error:', error);
+	  		});
+		}  //the event occurred
+	})
 	
 	
-document.querySelector('.button').addEventListener('click', function(event) {
-  event.preventDefault();
-  caches.open('pages-cache-v1').then(function(cache) {
-    cache.matchAll('/data.txt').then(function(response) {
-	    debugger;
-      response.forEach(function(element, index, array) {
-	reader = element["body"].getReader();
-	      debugger;
-	reader.read().then(function processText({ done, value }) {
-		debugger;
-	    if (done) {
-	      console.log(value);
-	    }
+	document.querySelector('.button').addEventListener('click', function(event) {
+	  event.preventDefault();
+	  caches.open('pages-cache-v1').then(function(cache) {
+	    cache.match('/data.txt').then(function(response) {
+	    	return response;
+	    });
+	  });
 	});
-      });
-    });
-  })
-});
+
+	self.addEventListener('fetch', function(event) {
+	  event.respondWith(
+	    caches.match(event.request).then(function(response) {
+	      return response || fetch(event.request);
+	    }).catch(function() {
+	      return caches.match('/offline.html');
+	    })
+	  );
+	});
+
+	// document.querySelector('.button').addEventListener('click', function(event) {
+	//   event.preventDefault();
+	//   caches.open('pages-cache-v1').then(function(cache) {
+	//     cache.match('/data.txt').then(function(response) {
+	//     	return response;
+	//     });
+	//   });
+	// });
 </script>
 </html>
