@@ -15,13 +15,3 @@ self.addEventListener('install', event => {
   );
 });
 
-document.querySelector('.button').addEventListener('click', function(event) {
-  event.preventDefault();
-  caches.open(staticCacheName).then(function(cache) {
-    cache.matchAll('/data.txt').then(function(response) {
-      response.forEach(function(element, index, array) {
-        console.log(element);
-      });
-    });
-  })
-});
