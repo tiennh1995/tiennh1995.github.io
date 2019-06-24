@@ -9,6 +9,8 @@
 </body>
 
 <script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function(event) {
+
 	if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js')
   .then(function(registration) {
@@ -17,6 +19,7 @@
   .catch(function(error) {
     console.log('Service worker registration failed, error:', error);
   });
-}
+}  //the event occurred
+})
 </script>
 </html>
