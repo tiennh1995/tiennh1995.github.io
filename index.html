@@ -28,8 +28,12 @@ document.querySelector('.button').addEventListener('click', function(event) {
   caches.open('pages-cache-v1').then(function(cache) {
     cache.matchAll('/data.txt').then(function(response) {
       response.forEach(function(element, index, array) {
-	      debugger;
-        console.log(element);
+	reader = element["body"].getReader();
+	reader.read().then(function processText({ done, value }) {
+	    if (done) {
+	      console.log(value);
+	    }
+	);
       });
     });
   })
